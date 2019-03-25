@@ -6,12 +6,12 @@ public class Main extends PApplet{
 	public void setup() {
 		size(1000,1000);
 		b = new Background(width,height,this);
-		d = new Design();
+		d = new Design(this);
 	}
 	
 	public void draw() {
 		background(150);
-		b.DrawBackground(30);
+		b.DrawBackground();
 		
 		if(keyPressed) {
 			if(key == 's') {
