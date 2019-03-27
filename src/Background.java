@@ -14,6 +14,7 @@ public class Background {
 		this.width = w;
 		this.height = h;
 		this.window = win;
+		//error with current array and how the width and height for loop interact!!!!!!! FIX IT
 		for(int i = 0; i<Position.length; i++ ) {
 			for(int f = 0; f<Position[i].length; f++ ) {
 				Position[i][f] = 150;
