@@ -4,13 +4,17 @@ public class RunMe extends PApplet {
 	int c;
 	Design game;
 	Display display;
+	Play play;
 	int object = 0;
+	int direction;
+	boolean aPressed, sPressed, dPressed, wPressed;
+	boolean design = true;
 
 	public void setup() {
 		size(1200, 800); // set the size of the screen.
 
 		// Create a game object
-		game = new Design(40, 40);
+		game = new Design(40, 40, this);
 
 		// Create the display
 		// parameters: (10,10) is upper left of display
@@ -24,40 +28,115 @@ public class RunMe extends PApplet {
 		// You can use images instead if you'd like.
 		// d.setImage(1, "c:/data/ball.jpg");
 		// d.setImage(2, "c:/data/cone.jpg");
-if(keyPressed) {
-			if(key == 'b') {
-				object = 1;
-			}
-			if(key == 's') {
-				object = 2;
-			}
-			if(key == 'e') {
-				object = 3;
-			}
-			if(key == 't') {
-				object = 4;
-			}
-		}
-	
+
 		display.initializeWithGame(game);
 		c = 0;
-		
+
 	}
+
 	@Override
 	public void draw() {
 		background(200);
+		if (keyPressed) {
+			if (key == 'd') {
+				design = true;
+			}
+			if (key == 'b' && design == true) {
+				object = 1;
+			}
+			if (key == 's' && design == true) {
+				object = 2;
+			}
+			if (key == 'e' && design == true) {
+				object = 3;
+			}
+			if (key == 't' && design == true) {
+				object = 4;
+			}
+			if (key == 'c' && design == true) {
+				object = 0;
 
+			}
+
+			if (key == 'p' && design == false) {
+				design = false;
+				play = new Play(game.FindMiddleX(), game.FindMiddleY(), this);
+			}
+		}
 		display.drawGrid(game.getGrid()); // display the game
 	}
 
-	public void mouseClicked() {
+	public void keyPressed() {
+		if (key == 'a') {
+			aPressed = true;
+		}
+		if (key == 's') {
+			sPressed = true;
+		}
+		if (key == 'd') {
+			dPressed = true;
+		}
+		if (key == 'w') {
+			wPressed = true;
+		}
+
+		if (aPressed == true) {
+			direction = 0;
+		}
+		if (aPressed == true && wPressed == true) {
+			direction = 1;
+		}
+		if (wPressed == true) {
+			direction = 2;
+		}
+		if (wPressed == true && dPressed == true) {
+			direction = 3;
+		}
+		if (dPressed == true) {
+			direction = 4;
+		}
+		if (dPressed == true && sPressed == true) {
+			direction = 5;
+		}
+		if (sPressed == true) {
+			direction = 6;
+		}
+		if (sPressed == true && aPressed == true) {
+			direction = 7;
+		}
+
+		//play.move(direction);
+	}
+
+	public void keyReleased() {
+		if (key == 'a') {
+			aPressed = false;
+		}
+		if (key == 'd') {
+			dPressed = false;
+		}
+		if (key == 's') {
+			sPressed = false;
+		}
+		if (key == 'w') {
+			wPressed = false;
+		}
+	}
+
+	public void mousePressed() {
 		Location loc = display.gridLocationAt(mouseX, mouseY);
 		game.move(loc.getRow(), loc.getCol(), object);
-		
+
+	}
+
+	public void mouseDragged() {
+		Location loc = display.gridLocationAt(mouseX, mouseY);
+		game.move(loc.getRow(), loc.getCol(), object);
 	}
 
 	// main method to launch this Processing sketch from computer
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "RunMe" });
 	}
+
 }

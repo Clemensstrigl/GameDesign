@@ -160,6 +160,6 @@ public class Display {
 		}
 		setNumCols(grid[0].length);
 		setNumRows(grid.length);
-		System.out.println("Setting disply: # rows is " + grid.length + ", # cols is " + grid[0].length + "\n s == Starting Zone\n e == Ending Zone \n b == Barrier \n t == Safe Zone");
+		System.out.println("Setting disply: # rows is " + grid.length + ", # cols is " + grid[0].length + "\n s == Starting Zone\n e == Ending Zone \n b == Barrier \n t == Safe Zone\n c == Clear");
 	}
 }

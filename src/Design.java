@@ -1,17 +1,23 @@
+import processing.core.PApplet;
+
 public class Design {
 	private boolean gameOver; // flag to record if the game is over
 	private int playerTurn; // whose turn it is
 	private int winner; // who the winner is (0 if no winner)
 	private int cols, rows; // # of rows and cols in game
-	private int[][] grid; // the grid that stores the pieces
-
+	public int[][] grid; // the grid that stores the pieces
+	int middleOfStartingZoneRow;
+	int lowestCol,highestCol,lowestRow,highestRow;
+	int firstSave = 0;
+	PApplet window;
 	// The constructor initializes the game
-	public Design(int r, int c) {
+	public Design(int r, int c, PApplet window) {
 		// Create the board
 		this.cols = c;
 		this.rows = r;
 		grid = new int[r][c];
 		gameOver = false;
+		this.window = window;
 	}
 
 	/*
@@ -50,20 +56,34 @@ public class Design {
 
 	// makes the move
 	// returns false if no move was made, true if the move was successful.
-	public boolean move(int r, int c, int o) {
+	public boolean move(int r, int c, int color) {
+		
 		if (isValidMove(r, c) == false)
 			return false; // if not valid, exit
 		if (gameOver == true)
 			return false; // if game is over, exit
 		if (isValidMove(r, c) == true) {
-			if (grid[r][c] == 0) {
-				grid[r][c] = o;
-			}
-		
+				grid[r][c] = color;
 		}
-		/* Make the move by changing what you need to change in grid */
-
-		// check for the winner
+		if(color == 2 && firstSave == 0) {
+			lowestRow = r;
+			lowestCol = c;
+			highestRow = r;
+			highestCol = c;
+		}
+		if(color == 2 && r < lowestRow) {
+			lowestRow = r;
+		}
+		if(color == 2 && c < lowestCol) {
+			lowestCol = c;
+		}
+		if(color == 2 && r > highestRow) {
+			highestCol = c;
+		}
+		if(color == 2 && c > highestCol) {
+			highestCol = c;
+		}
+		
 
 		return true; // this means the move was successfully made
 	}
@@ -76,4 +96,25 @@ public class Design {
 	public int[][] getGrid() {
 		return grid;
 	}
+	
+	public void Save() {
+		
+	}
+	public int FindMiddleY() {
+		int middleY =  lowestRow +((highestRow - lowestRow)/2) * (window.height/ grid.length) ;
+		return middleY;
+	}
+	public int FindMiddleX() {
+		int middleX =  (lowestCol +((highestCol - lowestCol)/2)) * (window.width/ grid[0].length) ;
+		return middleX;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
