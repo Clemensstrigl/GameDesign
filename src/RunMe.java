@@ -105,7 +105,7 @@ public class RunMe extends PApplet {
 			direction = 7;
 		}
 
-		//play.move(direction);
+		// play.move(direction);
 	}
 
 	public void keyReleased() {
@@ -124,14 +124,18 @@ public class RunMe extends PApplet {
 	}
 
 	public void mousePressed() {
-		Location loc = display.gridLocationAt(mouseX, mouseY);
-		game.move(loc.getRow(), loc.getCol(), object);
+		if (design == true) {
+			Location loc = display.gridLocationAt(mouseX, mouseY);
+			game.move(loc.getRow(), loc.getCol(), object);
+		}
 
 	}
 
 	public void mouseDragged() {
-		Location loc = display.gridLocationAt(mouseX, mouseY);
-		game.move(loc.getRow(), loc.getCol(), object);
+		if (design == true) {
+			Location loc = display.gridLocationAt(mouseX, mouseY);
+			game.move(loc.getRow(), loc.getCol(), object);
+		}
 	}
 
 	// main method to launch this Processing sketch from computer

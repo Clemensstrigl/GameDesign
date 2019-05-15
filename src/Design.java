@@ -12,7 +12,6 @@ public class Design {
 	PApplet window;
 	// The constructor initializes the game
 	public Design(int r, int c, PApplet window) {
-		// Create the board
 		this.cols = c;
 		this.rows = r;
 		grid = new int[r][c];
@@ -108,13 +107,7 @@ public class Design {
 		int middleX =  (lowestCol +((highestCol - lowestCol)/2)) * (window.width/ grid[0].length) ;
 		return middleX;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
+	
+	
+	
