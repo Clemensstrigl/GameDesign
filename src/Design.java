@@ -7,9 +7,11 @@ public class Design {
 	private int cols, rows; // # of rows and cols in game
 	public int[][] grid; // the grid that stores the pieces
 	int middleOfStartingZoneRow;
-	int lowestCol,highestCol,lowestRow,highestRow;
-	int firstSave = 0;
+	int lowestCol, highestCol, lowestRow, highestRow;
+	boolean firstSave = true;
 	PApplet window;
+	boolean findValue = true;
+
 	// The constructor initializes the game
 	public Design(int r, int c, PApplet window) {
 		this.cols = c;
@@ -56,33 +58,35 @@ public class Design {
 	// makes the move
 	// returns false if no move was made, true if the move was successful.
 	public boolean move(int r, int c, int color) {
-		
+
 		if (isValidMove(r, c) == false)
 			return false; // if not valid, exit
 		if (gameOver == true)
 			return false; // if game is over, exit
 		if (isValidMove(r, c) == true) {
-				grid[r][c] = color;
+			grid[r][c] = color;
 		}
-		if(color == 2 && firstSave == 0) {
+		if (color == 2 && firstSave == true) {
 			lowestRow = r;
 			lowestCol = c;
 			highestRow = r;
 			highestCol = c;
+			firstSave = false;
 		}
-		if(color == 2 && r < lowestRow) {
-			lowestRow = r;
+		if (color == 2 && r < lowestRow) {
+			lowestRow = r +1;
 		}
-		if(color == 2 && c < lowestCol) {
-			lowestCol = c;
+		if (color == 2 && c < lowestCol) {
+			lowestCol = c +1;
 		}
-		if(color == 2 && r > highestRow) {
-			highestCol = c;
+		if (color == 2 && r > highestRow) {
+			highestRow = r +1;
+
 		}
-		if(color == 2 && c > highestCol) {
-			highestCol = c;
+		if (color == 2 && c > highestCol) {
+			highestCol = c +1;
+
 		}
-		
 
 		return true; // this means the move was successfully made
 	}
@@ -91,23 +95,32 @@ public class Design {
 	 * Return true if the game is over. False otherwise.
 	 */
 
-
 	public int[][] getGrid() {
 		return grid;
 	}
-	
+
 	public void Save() {
-		
+
 	}
-	public int FindMiddleY() {
-		int middleY =  lowestRow +((highestRow - lowestRow)/2) * (window.height/ grid.length) ;
+
+	public void setFalse() {
+		findValue = false;
+	}
+
+	public float FindMiddleY() {
+		float middleY = window.height/2;
+		if (findValue == true) {
+			middleY = (lowestRow + ((highestRow - lowestRow) / 2)) * (window.height / grid.length);
+		}
 		return middleY;
+
 	}
-	public int FindMiddleX() {
-		int middleX =  (lowestCol +((highestCol - lowestCol)/2)) * (window.width/ grid[0].length) ;
+
+	public float FindMiddleX() {
+		float middleX = window.width/2;
+		if (findValue == true) {
+			middleX = (lowestCol + ((highestCol - lowestCol) / 2)) * (window.width / grid[0].length);
+		}
 		return middleX;
 	}
 }
-	
-	
-	

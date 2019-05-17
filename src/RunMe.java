@@ -2,19 +2,20 @@ import processing.core.*;
 
 public class RunMe extends PApplet {
 	int c;
-	Design game;
+	Design Design;
 	Display display;
 	Play play;
 	int object = 0;
-	int direction;
+	int direction = 8;
+	int count = 0;
 	boolean aPressed, sPressed, dPressed, wPressed;
-	boolean design = true;
+	boolean designMode = true;
 
 	public void setup() {
 		size(1200, 800); // set the size of the screen.
 
 		// Create a game object
-		game = new Design(40, 40, this);
+		Design = new Design(40, 40, this);
 
 		// Create the display
 		// parameters: (10,10) is upper left of display
@@ -29,7 +30,7 @@ public class RunMe extends PApplet {
 		// d.setImage(1, "c:/data/ball.jpg");
 		// d.setImage(2, "c:/data/cone.jpg");
 
-		display.initializeWithGame(game);
+		display.initializeWithGame(Design);
 		c = 0;
 
 	}
@@ -38,32 +39,46 @@ public class RunMe extends PApplet {
 	public void draw() {
 		background(200);
 		if (keyPressed) {
-			if (key == 'd') {
-				design = true;
+			if (key == 'o') {
+				designMode = true;
+				count = 0;
 			}
-			if (key == 'b' && design == true) {
+			if (key == 'b' && designMode == true) {
 				object = 1;
 			}
-			if (key == 's' && design == true) {
+			if (key == 's' && designMode == true) {
 				object = 2;
 			}
-			if (key == 'e' && design == true) {
+			if (key == 'e' && designMode == true) {
 				object = 3;
 			}
-			if (key == 't' && design == true) {
+			if (key == 't' && designMode == true) {
 				object = 4;
 			}
-			if (key == 'c' && design == true) {
+			if (key == 'c' && designMode == true) {
 				object = 0;
 
 			}
 
-			if (key == 'p' && design == false) {
-				design = false;
-				play = new Play(game.FindMiddleX(), game.FindMiddleY(), this);
+			if (key == 'p') {
+				designMode = false;
+				direction = 8;
 			}
+
 		}
-		display.drawGrid(game.getGrid()); // display the game
+		
+		display.drawGrid(Design.getGrid()); // display the game
+		
+		if (designMode == false) {
+			if(count == 0) {
+			play = new Play(Design.FindMiddleX(), Design.FindMiddleY(), this);
+			count++;
+			}
+			play.draw();
+			play.move(direction);
+			Design.setFalse();
+		}
+		
 	}
 
 	public void keyPressed() {
@@ -105,7 +120,6 @@ public class RunMe extends PApplet {
 			direction = 7;
 		}
 
-		// play.move(direction);
 	}
 
 	public void keyReleased() {
@@ -124,17 +138,17 @@ public class RunMe extends PApplet {
 	}
 
 	public void mousePressed() {
-		if (design == true) {
+		if (designMode == true) {
 			Location loc = display.gridLocationAt(mouseX, mouseY);
-			game.move(loc.getRow(), loc.getCol(), object);
+			Design.move(loc.getRow(), loc.getCol(), object);
 		}
 
 	}
 
 	public void mouseDragged() {
-		if (design == true) {
+		if (designMode == true) {
 			Location loc = display.gridLocationAt(mouseX, mouseY);
-			game.move(loc.getRow(), loc.getCol(), object);
+			Design.move(loc.getRow(), loc.getCol(), object);
 		}
 	}
 
