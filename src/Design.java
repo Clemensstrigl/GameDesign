@@ -19,6 +19,15 @@ public class Design {
 		grid = new int[r][c];
 		gameOver = false;
 		this.window = window;
+		for (int row = 0; row < grid.length; row++) {
+			for (int col = 0; col < grid[0].length; col++) {
+				if(row == 0 || row == 39) {
+					grid[row][col] = 1;
+				}
+				grid[row][0] = 1;
+				grid[row][grid[0].length-1] = 1;
+			}
+		}
 	}
 
 	/*
@@ -36,10 +45,10 @@ public class Design {
 	 * false otherwise.
 	 */
 	public boolean isInGrid(int row, int col) {
-		if (row > 40 || row < 0) {
+		if (row > 39 || row < 1) {
 			return false;
 		}
-		if (col > 40 || col < 0) {
+		if (col > 39 || col < 1) {
 			return false;
 
 		}
@@ -55,15 +64,15 @@ public class Design {
 		return isInGrid(l.getRow(), l.getCol());
 	}
 
+	
+
 	// makes the move
 	// returns false if no move was made, true if the move was successful.
 	public boolean move(int r, int c, int color) {
 
 		if (isValidMove(r, c) == false)
-			return false; // if not valid, exit
-		if (gameOver == true)
-			return false; // if game is over, exit
-		if (isValidMove(r, c) == true) {
+			return false;  
+		if (isValidMove(r, c) == true ) {
 			grid[r][c] = color;
 		}
 		if (color == 2 && firstSave == true) {
@@ -74,33 +83,35 @@ public class Design {
 			firstSave = false;
 		}
 		if (color == 2 && r < lowestRow) {
-			lowestRow = r +1;
+			lowestRow = r + 1;
 		}
 		if (color == 2 && c < lowestCol) {
-			lowestCol = c +1;
+			lowestCol = c + 1;
 		}
 		if (color == 2 && r > highestRow) {
-			highestRow = r +1;
+			highestRow = r + 1;
 
 		}
 		if (color == 2 && c > highestCol) {
-			highestCol = c +1;
+			highestCol = c + 1;
 
 		}
 
-		return true; // this means the move was successfully made
+		return true; 
 	}
 
-	/*
-	 * Return true if the game is over. False otherwise.
-	 */
+	
 
 	public int[][] getGrid() {
 		return grid;
 	}
 
 	public void Save() {
-
+	
+		
+		//TODO
+		
+		
 	}
 
 	public void setFalse() {
@@ -108,19 +119,23 @@ public class Design {
 	}
 
 	public float FindMiddleY() {
-		float middleY = window.height/2;
-		if (findValue == true) {
-			middleY = (lowestRow + ((highestRow - lowestRow) / 2)) * (window.height / grid.length);
+		
+		if (findValue == true && firstSave == false) {
+			float middleY = (lowestRow + ((highestRow - lowestRow) / 2)) * (window.height / grid.length);	
+			return middleY;
 		}
-		return middleY;
+		return window.height/2;
+	
 
 	}
 
 	public float FindMiddleX() {
-		float middleX = window.width/2;
-		if (findValue == true) {
-			middleX = (lowestCol + ((highestCol - lowestCol) / 2)) * (window.width / grid[0].length);
+		
+		if (findValue == true && firstSave == false) {
+			float middleX = (lowestCol + ((highestCol - lowestCol) / 2)) * (window.width / grid[0].length);
+			return middleX;
 		}
-		return middleX;
+		return window.width/2;
+		
 	}
 }

@@ -10,6 +10,7 @@ public class RunMe extends PApplet {
 	int count = 0;
 	boolean aPressed, sPressed, dPressed, wPressed;
 	boolean designMode = true;
+	int[][] grid;
 
 	public void setup() {
 		size(1200, 800); // set the size of the screen.
@@ -38,6 +39,7 @@ public class RunMe extends PApplet {
 	@Override
 	public void draw() {
 		background(200);
+		grid = Design.getGrid();
 		if (keyPressed) {
 			if (key == 'o') {
 				designMode = true;
@@ -77,6 +79,10 @@ public class RunMe extends PApplet {
 			play.draw();
 			play.move(direction);
 			Design.setFalse();
+			play.setGrid(grid);
+			if(play.isHittingBarrier() == true) {
+				System.exit(0);
+			}
 		}
 		
 	}
@@ -125,15 +131,19 @@ public class RunMe extends PApplet {
 	public void keyReleased() {
 		if (key == 'a') {
 			aPressed = false;
+			direction = 8;
 		}
 		if (key == 'd') {
 			dPressed = false;
+			direction = 8;
 		}
 		if (key == 's') {
 			sPressed = false;
+			direction = 8;
 		}
 		if (key == 'w') {
 			wPressed = false;
+			direction = 8;
 		}
 	}
 
