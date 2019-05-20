@@ -98,7 +98,7 @@ public class Play {
 		}
 		return false;
 	}
-//find all x and y positions of the top, bottom, and both sides of the player's ball
+	//find all x and y positions of the top, bottom, and both sides of the player's ball
 	
 	
 	public int gridXPositionRight() {
@@ -158,3 +158,7 @@ public class Play {
 	}
 
 }
+
+
+
+

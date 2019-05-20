@@ -2,18 +2,17 @@ import processing.core.PApplet;
 
 public class YMovingObjects {
 	PApplet window;
-	float x, y, XSpeed, YSpeed, Radius, CircleSpeed, StartingX,StartingY, XStart, XEnd,YStart,YEnd;
+	float x, y, YSpeed, StartingX, StartingY, YStart, YEnd;
 
-	public YMovingObjects(PApplet window, float StartingX, float StartingY , float XSpeed, float YSpeed, float XStart, float XEnd, float yStart, float YEnd, float Radius, float CircleSpeed) {
+	public YMovingObjects(PApplet window, float StartingX, float StartingY, float YSpeed, float YStart, float YEnd) {
 		this.window = window;
 		this.StartingX = StartingX;
 		this.StartingY = StartingY;
-		this.XSpeed = XSpeed;
 		this.YSpeed = YSpeed;
-		this.Radius = Radius;
-		this.CircleSpeed = CircleSpeed;
 		StartingX = x;
 		StartingY = y;
+		this.YStart = YStart;
+		this.YEnd = YEnd;
 
 	}
 
@@ -22,8 +21,17 @@ public class YMovingObjects {
 		window.ellipse(x, y, 10, 10);
 	}
 
-	
-	public void moveY() {
+	public void move() {
 		y = y + YSpeed;
+		changeDirection();
+	}
+
+	public void changeDirection() {
+		if (y < YStart) {
+			YSpeed = Math.abs(YSpeed);
+		}
+		if (y > YEnd) {
+			YSpeed = -YSpeed;
+		}
 	}
 }
