@@ -76,11 +76,15 @@ public class RunMe extends PApplet {
 			play = new Play(Design.FindMiddleX(), Design.FindMiddleY(), this);
 			count++;
 			}
-			play.draw();
+			play.draw(display);
 			play.move(direction);
 			Design.setFalse();
 			play.setGrid(grid);
 			if(play.isHittingBarrier() == true) {
+				System.exit(0);
+			}
+			if(play.isInEndingZone() == true) {
+				System.out.println("you are the winner gj");
 				System.exit(0);
 			}
 		}

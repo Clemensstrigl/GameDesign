@@ -3,7 +3,7 @@ import processing.core.PApplet;
 public class Play {
 	float x, y;
 	PApplet window;
-	Location t, b, r, l;
+	Location t, b, r, l,m;
 	int[][] grid;
 
 	public Play(float x, float y, PApplet window) {
@@ -12,21 +12,26 @@ public class Play {
 		this.window = window;
 	}
 
-	public void draw() {
+	public void draw(Display display) {
 		window.fill(window.color(255, 255, 0));
-		window.ellipse(x, y, 14, 14);
+		window.ellipse(x, y, 18, 18);
+		FindLocationTop(display);
+		FindLocationBottom(display);
+		FindLocationRight(display);
+		FindLocationLeft(display);
+		FindLocationMiddle(display);
 	}
 
 	public void move(int direction) {
 		if (direction == 0) {
-			x = x - 3;
+			x = x - 4;
 		}
 		if (direction == 1) {
 			x = (float) (x - 2.5);
 			y = (float) (y - 2.5);
 		}
 		if (direction == 2) {
-			y = y - 3;
+			y = y - 4;
 
 		}
 		if (direction == 3) {
@@ -34,14 +39,14 @@ public class Play {
 			y = (float) (y - 2.5);
 		}
 		if (direction == 4) {
-			x = x + 3;
+			x = x + 4;
 		}
 		if (direction == 5) {
 			x = (float) (x + 2.5);
 			y = (float) (y + 2.5);
 		}
 		if (direction == 6) {
-			y = y + 3;
+			y = y + 4;
 
 		}
 		if (direction == 7) {
@@ -62,7 +67,7 @@ public class Play {
 		}
 
 	}
-//TODO ask Mr.D for help on why i am getting null pointer exception
+	
 	public boolean isHittingBarrier() {
 		if (isHittingTop() == true || isHittingBottom() == true || isHittingRight() == true
 				|| isHittingLeft() == true) {
@@ -70,6 +75,8 @@ public class Play {
 		}
 		return false;
 	}
+	
+	
 
 	private boolean isHittingLeft() {
 		if (grid[gridYPositionLeft()][gridXPositionLeft()] == 1) {
@@ -98,6 +105,13 @@ public class Play {
 		}
 		return false;
 	}
+	
+	public boolean isInEndingZone() {
+		if (grid[gridXPositionMiddle()][gridXPositionMiddle()] == 3) {
+			return true;
+		}
+		return false;
+	}
 	//find all x and y positions of the top, bottom, and both sides of the player's ball
 	
 	
@@ -107,6 +121,13 @@ public class Play {
 
 	public int gridYPositionRight() {
 		return r.getRow();
+	}
+	public int gridXPositionMiddle() {
+		return m.getCol();
+	}
+
+	public int gridYPositionMiddle() {
+		return m.getRow();
 	}
 
 	public int gridXPositionLeft() {
@@ -134,23 +155,27 @@ public class Play {
 	}
 
 	public Location FindLocationTop(Display d) {
-		t = d.gridLocationAt(this.x - 7, this.y);
+		t = d.gridLocationAt(this.x - 9, this.y);
 		return t;
 	}
 
 	public Location FindLocationBottom(Display d) {
-		b = d.gridLocationAt(this.x + 7, this.y);
+		b = d.gridLocationAt(this.x + 9, this.y);
 		return b;
 	}
 
 	public Location FindLocationRight(Display d) {
-		r = d.gridLocationAt(this.x, this.y - 7);
+		r = d.gridLocationAt(this.x, this.y - 9);
 		return r;
 	}
 
 	public Location FindLocationLeft(Display d) {
-		l = d.gridLocationAt(this.x, this.y + 7);
+		l = d.gridLocationAt(this.x, this.y + 9);
 		return l;
+	}
+	public Location FindLocationMiddle(Display d) {
+		m = d.gridLocationAt(this.x, this.y);
+		return m;
 	}
 
 	public void setGrid(int[][] grid) {
