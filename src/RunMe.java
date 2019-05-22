@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import processing.core.*;
 
 public class RunMe extends PApplet {
@@ -9,8 +11,12 @@ public class RunMe extends PApplet {
 	int direction = 8;
 	int count = 0;
 	boolean aPressed, sPressed, dPressed, wPressed;
+	boolean YObjects = false, XObjects = false, CircleObjects = false;
 	boolean designMode = true;
 	int[][] grid;
+	ArrayList<Object> objects;
+	boolean firstClickAddingObjects = true;
+	boolean addObjects = false;
 
 	public void setup() {
 		size(1200, 800); // set the size of the screen.
@@ -36,15 +42,32 @@ public class RunMe extends PApplet {
 
 	}
 
-	@Override
 	public void draw() {
 		background(200);
 		grid = Design.getGrid();
 		if (keyPressed) {
-			if (key == 'o') {
+			if (key == 'i') {
 				designMode = true;
+				addObjects = true;
 				count = 0;
 			}
+
+			if (key == 'o') {
+				addObjects = true;
+			}
+
+			if (addObjects == true && key == 'y') {
+				YObjects = true;
+			}
+
+			if (addObjects == true && key == 'x') {
+				XObjects = true;
+			}
+
+			if (addObjects == true && key == 'z') {
+				CircleObjects = true;
+			}
+
 			if (key == 'b' && designMode == true) {
 				object = 1;
 			}
@@ -64,31 +87,32 @@ public class RunMe extends PApplet {
 
 			if (key == 'p') {
 				designMode = false;
+				addObjects = false;
 				direction = 8;
 			}
 
 		}
-		
+
 		display.drawGrid(Design.getGrid()); // display the game
-		
-		if (designMode == false) {
-			if(count == 0) {
-			play = new Play(Design.FindMiddleX(), Design.FindMiddleY(), this);
-			count++;
+
+		if (designMode == false && addObjects == false) {
+			if (count == 0) {
+				play = new Play(Design.FindMiddleX(), Design.FindMiddleY(), this);
+				count++;
 			}
 			play.draw(display);
 			play.move(direction);
 			Design.setFalse();
 			play.setGrid(grid);
-			if(play.isHittingBarrier() == true) {
+			if (play.isHittingBarrier() == true) {
 				System.exit(0);
 			}
-			if(play.isInEndingZone() == true) {
+			if (play.isInEndingZone() == true) {
 				System.out.println("you are the winner gj");
 				System.exit(0);
 			}
 		}
-		
+
 	}
 
 	public void keyPressed() {
@@ -105,29 +129,25 @@ public class RunMe extends PApplet {
 			wPressed = true;
 		}
 
-		if (aPressed == true) {
-			direction = 0;
-		}
-		if (aPressed == true && wPressed == true) {
-			direction = 1;
-		}
-		if (wPressed == true) {
-			direction = 2;
-		}
-		if (wPressed == true && dPressed == true) {
-			direction = 3;
-		}
-		if (dPressed == true) {
-			direction = 4;
-		}
-		if (dPressed == true && sPressed == true) {
-			direction = 5;
-		}
-		if (sPressed == true) {
-			direction = 6;
-		}
 		if (sPressed == true && aPressed == true) {
 			direction = 7;
+		} else if (aPressed == true && wPressed == true) {
+			direction = 1;
+		} else if (dPressed == true && sPressed == true) {
+			direction = 5;
+		} else if (wPressed == true && dPressed == true) {
+			direction = 3;
+		} else if (dPressed == true) {
+			direction = 4;
+		}
+
+		else if (sPressed == true) {
+			direction = 6;
+		}else if (wPressed == true) {
+			direction = 2;
+		}
+		else if (aPressed == true) {
+			direction = 0;
 		}
 
 	}
@@ -156,6 +176,11 @@ public class RunMe extends PApplet {
 			Location loc = display.gridLocationAt(mouseX, mouseY);
 			Design.move(loc.getRow(), loc.getCol(), object);
 		}
+		if (addObjects = true) {
+			if (firstClickAddingObjects == true && YObjects == true) {
+				// objects.add();
+			}
+		}
 
 	}
 
@@ -169,6 +194,10 @@ public class RunMe extends PApplet {
 	// main method to launch this Processing sketch from computer
 	public static void main(String[] args) {
 		PApplet.main(new String[] { "RunMe" });
+	}
+
+	public void addObjects() {
+
 	}
 
 }
