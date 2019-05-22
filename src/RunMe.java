@@ -128,7 +128,6 @@ public class RunMe extends PApplet {
 		if (key == 'w') {
 			wPressed = true;
 		}
-
 		if (sPressed == true && aPressed == true) {
 			direction = 7;
 		} else if (aPressed == true && wPressed == true) {
@@ -140,10 +139,9 @@ public class RunMe extends PApplet {
 		} else if (dPressed == true) {
 			direction = 4;
 		}
-
 		else if (sPressed == true) {
 			direction = 6;
-		}else if (wPressed == true) {
+		} else if (wPressed == true) {
 			direction = 2;
 		}
 		else if (aPressed == true) {
