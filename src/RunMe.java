@@ -100,6 +100,7 @@ public class RunMe extends PApplet {
 				play = new Play(Design.FindMiddleX(), Design.FindMiddleY(), this);
 				count++;
 			}
+			direction();
 			play.draw(display);
 			play.move(direction);
 			Design.setFalse();
@@ -128,26 +129,7 @@ public class RunMe extends PApplet {
 		if (key == 'w') {
 			wPressed = true;
 		}
-		if (sPressed == true && aPressed == true) {
-			direction = 7;
-		} else if (aPressed == true && wPressed == true) {
-			direction = 1;
-		} else if (dPressed == true && sPressed == true) {
-			direction = 5;
-		} else if (wPressed == true && dPressed == true) {
-			direction = 3;
-		} else if (dPressed == true) {
-			direction = 4;
-		}
-		else if (sPressed == true) {
-			direction = 6;
-		} else if (wPressed == true) {
-			direction = 2;
-		}
-		else if (aPressed == true) {
-			direction = 0;
-		}
-
+		
 	}
 
 	public void keyReleased() {
@@ -166,6 +148,28 @@ public class RunMe extends PApplet {
 		if (key == 'w') {
 			wPressed = false;
 			direction = 8;
+		}
+	}
+	
+	public void direction() {
+		if (sPressed == true && aPressed == true) {
+			direction = 7;
+		} else if (aPressed == true && wPressed == true) {
+			direction = 1;
+		} else if (dPressed == true && sPressed == true) {
+			direction = 5;
+		} else if (wPressed == true && dPressed == true) {
+			direction = 3;
+		} else if (dPressed == true) {
+			direction = 4;
+		}
+		else if (sPressed == true) {
+			direction = 6;
+		} else if (wPressed == true) {
+			direction = 2;
+		}
+		else if (aPressed == true) {
+			direction = 0;
 		}
 	}
 
@@ -195,7 +199,7 @@ public class RunMe extends PApplet {
 	}
 
 	public void addObjects() {
-
+		
 	}
 
 }
