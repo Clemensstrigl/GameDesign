@@ -1,38 +1,51 @@
 import processing.core.PApplet;
 
-public class XMovingObjects {
-	PApplet window;
-	float x, y, XSpeed , XStart, XEnd;
-	private static float StartingX, StartingY;
+public class XMovingObjects extends Objects {
+	float x, y, XStart, XEnd;
 
-	public XMovingObjects(PApplet window, float StartingX, float StartingY, float XSpeed, float XStart, float XEnd) {
-		this.window = window;
-		this.StartingX = StartingX;
-		this.StartingY = StartingY;
-		this.XSpeed = XSpeed;
+	public XMovingObjects(PApplet window, float StartingX, float StartingY, float XSpeed, float XEnd) {
+		super(window,StartingX,StartingY,XSpeed);
 		StartingX = x;
 		StartingY = y;
-		this.XStart = XStart;
+		this.XStart = StartingX;
 		this.XEnd = XEnd;
 
 	}
 
 	public void draw() {
 		window.fill(window.color(255, 0, 0));
-		window.ellipse(x, y, 10, 10);
+		window.ellipse(this.x, this.y, 10, 10);
 	}
 
 	public void move() {
-		x = x + XSpeed;
+		this.x = this.x + Speed;
 		changeDirection();
 	}
 
 	public void changeDirection() {
-		if (y < XStart) {
-			XSpeed = Math.abs(XSpeed);
+		if (XStart < XEnd) {
+			if (this.x < this.XStart) {
+				Speed = Math.abs(Speed);
+			}
+			if (this.x > this.XEnd) {
+				Speed = -Speed;
+			}
 		}
-		if (y > XEnd) {
-			XSpeed = -XSpeed;
+		if (XStart > XEnd) {
+			if (this.x > this.XStart) {
+				Speed = -Speed;
+			}
+			if (this.x < this.XEnd) {
+				Speed = Math.abs(Speed);
+			}
 		}
+
+	}
+	
+	public float getX() {
+		return this.x;
+	}
+	public float getY() {
+		return this.y;
 	}
 }

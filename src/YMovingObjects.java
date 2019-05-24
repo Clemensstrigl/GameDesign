@@ -1,37 +1,52 @@
 import processing.core.PApplet;
 
-public class YMovingObjects {
+public class YMovingObjects extends Objects {
 	PApplet window;
-	float x, y, YSpeed, StartingX, StartingY, YStart, YEnd;
+	float x, y, YStart, YEnd;
 
-	public YMovingObjects(PApplet window, float StartingX, float StartingY, float YSpeed, float YStart, float YEnd) {
-		this.window = window;
-		this.StartingX = StartingX;
-		this.StartingY = StartingY;
-		this.YSpeed = YSpeed;
+	public YMovingObjects(PApplet window, float StartingX, float StartingY, float YSpeed, float YEnd) {
+		super(window, StartingX, StartingY, YSpeed);
 		StartingX = x;
 		StartingY = y;
-		this.YStart = YStart;
+		this.YStart = StartingY;
 		this.YEnd = YEnd;
 
 	}
 
 	public void draw() {
 		window.fill(window.color(255, 0, 0));
-		window.ellipse(x, y, 10, 10);
+		window.ellipse(this.x, this.y, 10, 10);
 	}
 
 	public void move() {
-		y = y + YSpeed;
+		this.y = this.y + Speed;
 		changeDirection();
 	}
 
 	public void changeDirection() {
-		if (y < YStart) {
-			YSpeed = Math.abs(YSpeed);
+		if (YStart < YEnd) {
+			if (this.y < this.YStart) {
+				Speed = Math.abs(Speed);
+			}
+			if (this.y > this.YEnd) {
+				Speed = -Speed;
+			}
 		}
-		if (y > YEnd) {
-			YSpeed = -YSpeed;
+		if (YStart > YEnd) {
+			if (this.y > this.YStart) {
+				Speed = -Speed;
+			}
+			if (this.y < this.YEnd) {
+				Speed = Math.abs(Speed);
+			}
 		}
+	}
+
+	public float getX() {
+		return x;
+	}
+
+	public float getY() {
+		return y;
 	}
 }

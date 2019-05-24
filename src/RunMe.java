@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import processing.core.*;
 
 public class RunMe extends PApplet {
@@ -14,7 +16,7 @@ public class RunMe extends PApplet {
 	boolean YObjects = false, XObjects = false, CircleObjects = false;
 	boolean designMode = true;
 	int[][] grid;
-	ArrayList<Object> objects;
+	ArrayList<Objects> objects;
 	boolean firstClickAddingObjects = true;
 	boolean addObjects = false;
 
@@ -50,6 +52,9 @@ public class RunMe extends PApplet {
 				designMode = true;
 				addObjects = true;
 				count = 0;
+			}
+			if(keyCode == CONTROL && key == 's') {
+				Design.Save();
 			}
 
 			if (key == 'o') {
@@ -94,7 +99,7 @@ public class RunMe extends PApplet {
 		}
 
 		display.drawGrid(Design.getGrid()); // display the game
-
+		displayAllObjects();
 		if (designMode == false && addObjects == false) {
 			if (count == 0) {
 				play = new Play(Design.FindMiddleX(), Design.FindMiddleY(), this);
@@ -198,8 +203,107 @@ public class RunMe extends PApplet {
 		PApplet.main(new String[] { "RunMe" });
 	}
 
-	public void addObjects() {
+	public void addXObject() {
+		if(XObjects == true) {
+		float StartingX = -50;
+		float EndingX = -50;
+		float yPosition = -50;
+		float XSpeed = 0;
+		if(mousePressed && firstClickAddingObjects == true) {
+			 StartingX = mouseX;
+			 System.out.println("StartinX = " +StartingX);
+			 yPosition = mouseY;
+			 System.out.println("YPosition= " + yPosition);
+			firstClickAddingObjects = false;
+		}
+		if(mousePressed && firstClickAddingObjects == false) {
+			 EndingX = mouseX;
+			firstClickAddingObjects = true;
+		}
+		
+		String response = JOptionPane.showInputDialog("What do you want its XSPEED to be? Pls only write a hole number, this speed is derenmined by how many Pixels it moves. REMINDER this method runs 30 times a second");
+		 XSpeed = Integer.parseInt(response);
+
+		 
+		objects.add(new XMovingObjects(this,StartingX,yPosition,XSpeed,EndingX));
+		XObjects = false;
+	}
 		
 	}
+//	public void addCircularObject() {
+//		float StartingX = -50;
+//		float StartingY = -50;
+//		float Radius = 0;
+//		if(mousePressed && firstClickAddingObjects == true) {
+//			 StartingX = mouseX;
+//			 yPosition = mouseY;
+//			firstClickAddingObjects = false;
+//		}
+//		
+//		
+//		String response = JOptionPane.showInputDialog("What do you want its RADIUS to be? Pls only write a hole number, this speed is derenmined by how many Pixels it moves. REMINDER this method runs 30 times a second");
+//		 Radius = Integer.parseInt(response);
+//
+//		 
+//		objects.add(new XMovingObjects(this,StartingX,StartingY,Radius,EndingX));
+//		
+//		
+//	}
 
+	public void addYObject() {
+		if(YObjects == true) {
+		float StartingY = -50;
+		float EndingY = -50;
+		float xPosition = -50;
+		float YSpeed = 0;
+		if(mousePressed && firstClickAddingObjects == true) {
+			 StartingY = mouseY;
+			 System.out.println("StartinY = " +StartingY);
+			 xPosition = mouseX;
+			 System.out.println("XPosition = " +xPosition);
+
+			firstClickAddingObjects = false;
+		}
+		if(mousePressed && firstClickAddingObjects == false) {
+			 EndingY = mouseY;
+			 System.out.println("EndingY = "+EndingY);
+
+			firstClickAddingObjects = true;
+		}
+		
+		String response = JOptionPane.showInputDialog("What do you want its YSPEED to be? Pls only write a hole number, this speed is derenmined by how many Pixels it moves. REMINDER this method runs 30 times a second");
+		 YSpeed = Integer.parseInt(response);
+
+		 
+		objects.add(new YMovingObjects(this,StartingY,xPosition,YSpeed,EndingY));
+		YObjects = false;
+		}
+		
+	}
+	
+	public void displayAllObjects() {
+		for(int i = 0; i<objects.size();i++) {
+			 objects.get(i).draw();
+			 objects.get(i).move();
+			 objects.get(i).changeDirection();
+			
+		}
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
