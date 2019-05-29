@@ -5,21 +5,20 @@ public class XMovingObjects extends Objects {
 
 	public XMovingObjects(PApplet window, float StartingX, float StartingY, float XSpeed, float XEnd) {
 		super(window,StartingX,StartingY,XSpeed);
-		StartingX = x;
-		StartingY = y;
 		this.XStart = StartingX;
 		this.XEnd = XEnd;
+		this.x = StartingX;
+		this.y = StartingY;
 
 	}
 
 	public void draw() {
 		window.fill(window.color(255, 0, 0));
-		window.ellipse(this.x, this.y, 10, 10);
+		window.ellipse(this.x, this.y, 20, 20);
 	}
 
 	public void move() {
 		this.x = this.x + Speed;
-		changeDirection();
 	}
 
 	public void changeDirection() {
