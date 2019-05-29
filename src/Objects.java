@@ -3,7 +3,7 @@ import processing.core.PApplet;
 public abstract class Objects {
 
 	protected final float StartingY, StartingX;
-	protected float Speed, x,y;
+	protected float Speed;
 	PApplet window;
 	public Objects(PApplet window, float StartingX, float StartingY, float Speed) {
 		this.window = window;
@@ -16,7 +16,5 @@ public abstract class Objects {
 	public abstract void move();
 	public abstract void changeDirection();
 	public abstract float getX();
-	public abstract float getY();
-	
-	
+	public abstract float getY();	
 }

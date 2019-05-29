@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 
 public class Play {
@@ -5,10 +7,14 @@ public class Play {
 	PApplet window;
 	Location t, b, r, l,m;
 	int[][] grid;
+	final float StartingX, StartingY;
+	ArrayList<Objects> objects;
 
 	public Play(float x, float y, PApplet window) {
 		this.x = x;
 		this.y = y;
+		this.StartingX = x;
+		this.StartingY = y;
 		this.window = window;
 	}
 
@@ -181,7 +187,43 @@ public class Play {
 	public void setGrid(int[][] grid) {
 		this.grid = grid;
 	}
+	
+public void restart() {
+	x = StartingX;
+	y = StartingY;
+}
 
+public void setArray(ArrayList<Objects> objects) {
+	this.objects = objects;
+}
+
+public boolean isXIntervalOverlapping(float x1, float wD, float xO, float wO) {
+	if ((x1+wD)  <= (xO + wO) && (x1+wD) >= (xO - wO) || (x1-wD)  <= (xO + wO) && (x1-wD) >= (xO - wO)) {
+		return true;
+	}
+
+	return false;
+}
+
+public boolean isYIntervalOverlapping(float y1, float hD, float yO, float hO) {
+	if ((y1+hD)  <= (yO + hO) && (y1+hD) >= (yO - hO) || (y1-hD)  <= (yO + hO) && (y1-hD) >= (yO - hO)) {
+		return true;
+
+	}
+	return false;
+}
+
+
+public boolean isHitting(Objects o) {
+	
+	if (isXIntervalOverlapping(this.x, 9, o.getX(), 10) == true
+			&& isYIntervalOverlapping(this.y, 9, o.getY(), 10) == true) {
+		return true;
+
+	}
+	
+	return false;
+}
 }
 
 
