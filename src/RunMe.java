@@ -99,13 +99,15 @@ public class RunMe extends PApplet {
 		}
 
 		display.drawGrid(Design.getGrid()); // display the game
-		displayAllObjects();
 		if (designMode == false && addObjects == false) {
 			if (count == 0) {
 				play = new Play(Design.FindMiddleX(), Design.FindMiddleY(), this);
 				count++;
 			}
 			direction();
+			if(objects.size() != 0) {
+			displayAllObjects();
+			}
 			play.draw(display);
 			play.move(direction);
 			Design.setFalse();
