@@ -22,6 +22,7 @@ public class RunMe extends PApplet {
 	boolean addObjects = false;
 	int Xstage = 0, Ystage, cStage;
 	float XStartX, yPositionX, XEndX, XSpeedX, YStartY, xPositionY, YEndY, YSpeedY;
+	boolean startXLinePath = false, startYLinePath = false;
 
 	public void setup() {
 		size(1200, 800); // set the size of the screen.
@@ -106,7 +107,12 @@ public class RunMe extends PApplet {
 			}
 
 		}
-
+		if(startXLinePath == true && addObjects == true) {
+			drawXPathLine();
+		}
+		if(startYLinePath == true && addObjects == true) {
+			drawYPathLine();
+		}
 
 		display.drawGrid(Design.getGrid()); // display the game
 		if (designMode == false && addObjects == false) {
@@ -119,17 +125,17 @@ public class RunMe extends PApplet {
 
 			}
 			direction();
-			if(objects.size() != 0) {
-			displayAllObjects();
+			if (objects.size() != 0) {
+				displayAllObjects();
 			}
 			play.draw(display);
 			play.move(direction);
 			Design.setFalse();
 			play.setGrid(grid);
-			for (int i = 0; i < objects.size(); i++) {
-				play.isHitting(objects.get(i));
-
-			}
+//			for (int i = 0; i < objects.size(); i++) {
+//				play.isHitting(objects.get(i));
+//
+//			}
 			if (play.isHittingBarrier() == true) {
 				play.restart();
 			}
@@ -201,7 +207,6 @@ public class RunMe extends PApplet {
 			Location loc = display.gridLocationAt(mouseX, mouseY);
 			Design.move(loc.getRow(), loc.getCol(), object);
 		}
-		
 
 	}
 
@@ -223,6 +228,7 @@ public class RunMe extends PApplet {
 		if (XObjects) {
 			if (Xstage == 0) {
 				startXPlacemnt();
+				startXLinePath = true;
 			} else if (Xstage == 1) {
 				contiueXPlacement();
 			} else if (Xstage == 2) {
@@ -232,13 +238,14 @@ public class RunMe extends PApplet {
 		if (YObjects) {
 			if (Ystage == 0) {
 				startYPlacemnt();
+				startYLinePath = true;
 			} else if (Ystage == 1) {
 				contiueYPlacement();
 			} else if (Ystage == 2) {
 				finishYPlacement();
 			}
 		}
-		
+
 	}
 
 	private void finishYPlacement() {
@@ -246,17 +253,19 @@ public class RunMe extends PApplet {
 				"What do you want its YSPEED to be? Pls only write a hole number, this speed is derenmined by how many Pixels it moves. REMINDER this method runs 30 times a second");
 		YSpeedY = Integer.parseInt(response);
 
-		objects.add(new YMovingObjects(this, YStartY, xPositionY, YSpeedY, YEndY));
+		objects.add(new YMovingObjects(this, xPositionY, YStartY, YSpeedY, YEndY));
 		YObjects = false;
 		Ystage = 0;
-		
+		startYLinePath = false;
+
+
 	}
 
 	private void contiueYPlacement() {
 		YEndY = mouseY;
 		System.out.println("EndingY = " + YEndY);
 		Ystage = 2;
-		
+
 	}
 
 	private void startYPlacemnt() {
@@ -265,8 +274,7 @@ public class RunMe extends PApplet {
 		xPositionY = mouseX;
 		System.out.println("XPosition = " + xPositionY);
 		Ystage = 1;
-	
-}
+	}
 
 	private void finishXPlacement() {
 
@@ -277,7 +285,8 @@ public class RunMe extends PApplet {
 		objects.add(new XMovingObjects(this, XStartX, yPositionX, XSpeedX, XEndX));
 		XObjects = false;
 		Xstage = 0;
-		
+		startXLinePath = false;
+
 	}
 
 	private void contiueXPlacement() {
@@ -314,8 +323,6 @@ public class RunMe extends PApplet {
 //		
 //	}
 
-
-
 	public void displayAllObjects() {
 		for (int i = 0; i < objects.size(); i++) {
 			objects.get(i).draw();
@@ -323,6 +330,17 @@ public class RunMe extends PApplet {
 			objects.get(i).changeDirection();
 
 		}
+	}
+
+	public void drawXPathLine() {
+		
+		line(XStartX, yPositionX, mouseX, yPositionX);
+
+	}
+
+	public void drawYPathLine() {
+	
+		line(xPositionY, YStartY, xPositionY, mouseY);
 	}
 
 }

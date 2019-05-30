@@ -27,7 +27,7 @@ public class Play {
 		FindLocationLeft(display);
 		FindLocationMiddle(display);
 	}
-
+// the eight directions that the ball can go and then the #8 for when it is stationary
 	public void move(int direction) {
 		if (direction == 0) {
 			x = x - 4;
@@ -74,6 +74,7 @@ public class Play {
 
 	}
 	
+	// return true when ball hits an barrier
 	public boolean isHittingBarrier() {
 		if (isHittingTop() == true || isHittingBottom() == true || isHittingRight() == true
 				|| isHittingLeft() == true) {
@@ -82,7 +83,7 @@ public class Play {
 		return false;
 	}
 	
-	
+	//is hitting for all the four spots it can
 
 	private boolean isHittingLeft() {
 		if (grid[gridYPositionLeft()][gridXPositionLeft()] == 1) {
@@ -113,7 +114,7 @@ public class Play {
 	}
 	
 	public boolean isInEndingZone() {
-		if (grid[gridXPositionMiddle()][gridXPositionMiddle()] == 3) {
+		if (grid[gridYPositionMiddle()][gridXPositionMiddle()] == 3) {
 			return true;
 		}
 		return false;

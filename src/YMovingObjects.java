@@ -14,7 +14,7 @@ public class YMovingObjects extends Objects {
 
 	public void draw() {
 		window.fill(window.color(255, 0, 0));
-		window.ellipse(this.x, this.y, 20,20);
+		window.ellipse(this.x, this.y, 20, 20);
 	}
 
 	public void move() {
@@ -41,10 +41,10 @@ public class YMovingObjects extends Objects {
 	}
 
 	public float getX() {
-		return x;
+		return this.x;
 	}
 
 	public float getY() {
-		return y;
+		return this.y;
 	}
 }

@@ -34,6 +34,28 @@ public class Design {
 	 * Return true if r, c is a valid move for the game.
 	 */
 	public boolean isValidMove(int r, int c) {
+		for(int i = 0; i < grid.length; i++) {
+			if(r == 0 && c == i) {
+				return false;
+			}
+		}
+		for(int i = 0; i < grid.length; i++) {
+			if(r == grid.length -1 && c == i) {
+				return false;
+			}
+		}
+		for(int i = 0; i < grid[0].length; i++) {
+			if(r == i && c == 0) {
+				return false;
+			}
+		}
+		for(int i = 0; i < grid[0].length; i++) {
+			if(r == i && c == grid.length - 1) {
+				return false;
+			}
+		}
+		
+		
 		if (isInGrid(r, c) == false) // if outside grid, not valid
 			return false;
 
@@ -107,7 +129,7 @@ public class Design {
 	}
 
 	public void Save() {
-	
+		
 		
 		//TODO
 		

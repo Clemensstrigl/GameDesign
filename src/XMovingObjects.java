@@ -4,7 +4,7 @@ public class XMovingObjects extends Objects {
 	float x, y, XStart, XEnd;
 
 	public XMovingObjects(PApplet window, float StartingX, float StartingY, float XSpeed, float XEnd) {
-		super(window,StartingX,StartingY,XSpeed);
+		super(window, StartingX, StartingY, XSpeed);
 		this.XStart = StartingX;
 		this.XEnd = XEnd;
 		this.x = StartingX;
@@ -38,12 +38,12 @@ public class XMovingObjects extends Objects {
 				Speed = Math.abs(Speed);
 			}
 		}
-
 	}
-	
+
 	public float getX() {
 		return this.x;
 	}
+
 	public float getY() {
 		return this.y;
 	}
