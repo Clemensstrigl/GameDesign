@@ -132,10 +132,12 @@ public class RunMe extends PApplet {
 			play.move(direction);
 			Design.setFalse();
 			play.setGrid(grid);
-//			for (int i = 0; i < objects.size(); i++) {
-//				play.isHitting(objects.get(i));
-//
-//			}
+			for (int i = 0; i < objects.size(); i++) {
+				if(play.isHitting(objects.get(i)) == true) {
+					play.restart();
+				}
+
+			}
 			if (play.isHittingBarrier() == true) {
 				play.restart();
 			}
