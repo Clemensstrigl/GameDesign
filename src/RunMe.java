@@ -133,7 +133,7 @@ public class RunMe extends PApplet {
 			Design.setFalse();
 			play.setGrid(grid);
 			for (int i = 0; i < objects.size(); i++) {
-				if(play.isHitting(objects.get(i)) == true) {
+				if(play.isHitting(objects.get(i)) == true && grid[play.gridYPositionMiddle()][play.gridXPositionMiddle()] != 4) {
 					play.restart();
 				}
 
