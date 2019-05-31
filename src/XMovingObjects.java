@@ -13,7 +13,7 @@ public class XMovingObjects extends Objects {
 	}
 
 	public void draw() {
-		window.fill(window.color(255, 0, 0));
+		window.fill(window.color(0, 0, 255));
 		window.ellipse(this.x, this.y, 20, 20);
 	}
 
