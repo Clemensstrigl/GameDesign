@@ -393,7 +393,7 @@ public class RunMe extends PApplet {
 	public void load() {
 		grid = Design.origionalGrid();
 		objects.clear();
-		JFileChooser jfc = new JFileChooser("D:\\Eclipse\\Projects\\Game Design",FileSystemView.getFileSystemView());
+		JFileChooser jfc = new JFileChooser("D:\\Eclipse\\Projects\\Game Design\\SavedGame",FileSystemView.getFileSystemView());
 		int returnValue = jfc.showOpenDialog(null);
 		// int returnValue = jfc.showSaveDialog(null);
 

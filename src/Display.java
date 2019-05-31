@@ -160,6 +160,32 @@ public class Display {
 		}
 		setNumCols(grid[0].length);
 		setNumRows(grid.length);
-		System.out.println("Setting disply: # rows is " + grid.length + ", # cols is " + grid[0].length + "\n s == Starting Zone\n e == Ending Zone \n b == Barrier \n t == Safe Zone\n c == Clear\n o == Design Mode \n p == PlayMode");
+		System.out.println("Setting disply: # rows is " + grid.length + ", # cols is " + grid[0].length);
+		System.out.println(" i == Design Mode");
+		System.out.println(" s == Starting Zone");
+		System.out.println(" e == Ending Zone ");
+		System.out.println(" b == Barrier");
+		System.out.println(" t == Safe Zone");
+		System.out.println("  c == Clear squares");
+		System.out.println();
+		System.out.println(" o == Add Objects Mode");
+		System.out.println("In Design mode you have two different objects that you can place");
+		System.out.println(" x == Horizontally moving objects");
+		System.out.println(" y == Vertically moving objects");
+		System.out.println(" p == Play Mode");
+		System.out.println("If you want to save the game after you designed your game");
+		System.out.println(" SHIFT + S == Save the current design");
+		System.out.println("If you want to load a game");
+		System.out.println(" l = load + select the game design you want to play");
+		System.out.println();
+		System.out.println("The arrow keys are used to move the player when in Play Mode");
+
+
+
 	}
+	
+	
+	
+	
+	
 }
