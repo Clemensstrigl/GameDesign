@@ -35,28 +35,23 @@ public class RunMe extends PApplet {
 	String option;
 
 	public void setup() {
-		size(1200, 800); // set the size of the screen.
-
-		// Create a game object
+		size(1200, 800);
 		Design = new Design(40, 40, this);
-
-		// Create the display
-		// parameters: (10,10) is upper left of display
-		// (300, 300) is the width and height
 		display = new Display(this, 0, 0, width, height);
 
 		display.setColor(1, 0xFFFE1D1D); // barrier
 		display.setColor(2, 0xFF47F028); // Starting zone
 		display.setColor(3, 0xFF51FB74); // Ending zone
 		display.setColor(4, 0xFF28F0E3); // Safe zone
-		// You can use images instead if you'd like.
-		// d.setImage(1, "c:/data/ball.jpg");
-		// d.setImage(2, "c:/data/cone.jpg");
-
 		display.initializeWithGame(Design);
 		c = 0;
 		objects = new ArrayList<Objects>();
-
+		
+		/*MR. D: this is the version that i have submitted to Google Classroom
+		 * this is a working version
+		 * at home i will just add some detection on if the saving files were corrupted or altered
+		 * this is only as an addition to when the person playing wants to load their previous game
+		 * just so it doesn't return an error message*/
 	}
 
 	public void draw() {
