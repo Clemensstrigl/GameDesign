@@ -14,6 +14,8 @@ public class Design {
 	PApplet window;
 	boolean findValue = true;
 	int [][] origionalGrid;
+	boolean load = false;
+	float loadedStartingX, loadedStartingY;
 	// The constructor initializes the game
 	public Design(int r, int c, PApplet window) {
 		this.cols = c;
@@ -141,6 +143,9 @@ public class Design {
 			float middleY = (lowestRow + ((highestRow - lowestRow) / 2)) * (window.height / grid.length);	
 			return middleY;
 		}
+		if(load == true) {
+			return loadedStartingY;
+		}
 		return window.height/2;
 	
 
@@ -152,6 +157,9 @@ public class Design {
 			float middleX = (lowestCol + ((highestCol - lowestCol) / 2)) * (window.width / grid[0].length);
 			return middleX;
 		}
+		if(load == true) {
+			return loadedStartingX;
+		}
 		return window.width/2;
 		
 	}
@@ -160,4 +168,17 @@ public class Design {
 		
 		return origionalGrid;
 	}
+	
+	public void setStartingY(float Y) {
+		
+		this.loadedStartingY = Y;
+	}
+public void setStartingX(float X) {
+		
+		this.loadedStartingX = X;
+	}
+
+public void setLoadingPoints() {
+		load = true;
+}
 }

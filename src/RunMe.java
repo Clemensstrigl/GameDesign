@@ -378,8 +378,8 @@ public class RunMe extends PApplet {
 	public void Save() {
 		String response = JOptionPane.showInputDialog( "What do you want to call your Game that will be saved?");
 		try {
-			PrintWriter out = new PrintWriter(new FileWriter("SavedGame/" + response));
-			out.println(objects.size());
+			PrintWriter out = new PrintWriter(new FileWriter("D:/Eclipse/Projects/Game Design/SavedGame/" + response + ".txt"));
+			out.println(objects.size() + "," + Design.FindMiddleX() + "," + Design.FindMiddleY());
 			for(int i = 0; i< objects.size(); i++) {
 				out.println(objects.get(i).getStartingX() + "," + objects.get(i).getStartingY() + "," + objects.get(i).getSpeed() + "," + objects.get(i).getEndPosition() + "," + objects.get(i).whichObject());
 			}
@@ -391,7 +391,6 @@ public class RunMe extends PApplet {
 			}
 			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -399,7 +398,7 @@ public class RunMe extends PApplet {
 	public void load() {
 		grid = Design.origionalGrid();
 		objects.clear();
-		JFileChooser jfc = new JFileChooser("C:\\Users\\cstrigl928\\Eclipse storage\\Game Design",FileSystemView.getFileSystemView());
+		JFileChooser jfc = new JFileChooser("D:\\Eclipse\\Projects\\Game Design",FileSystemView.getFileSystemView());
 		int returnValue = jfc.showOpenDialog(null);
 		// int returnValue = jfc.showSaveDialog(null);
 
@@ -414,7 +413,11 @@ public class RunMe extends PApplet {
 			BufferedReader in = new BufferedReader(new FileReader(option));
 			
 			String numString = in.readLine();
-			int num = Integer.parseInt(numString);
+			String[] StartingVals = numString.split(",");
+			int num = Integer.parseInt(StartingVals[0]);
+			Design.setStartingX(Float.parseFloat(StartingVals[1])); 
+			Design.setStartingY(Float.parseFloat(StartingVals[2])); 
+
 			
 			for (int i = 0; i < num; i++) {
 				String line = in.readLine();
@@ -451,9 +454,9 @@ public class RunMe extends PApplet {
 					grid[r] = col;
 				}
 				
-			
-			
+		
 			in.close();
+			Design.setLoadingPoints();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
