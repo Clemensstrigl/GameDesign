@@ -1,3 +1,5 @@
+
+
 import processing.core.PApplet;
 
 public class Design {
@@ -11,7 +13,7 @@ public class Design {
 	boolean firstSave = true;
 	PApplet window;
 	boolean findValue = true;
-
+	int [][] origionalGrid;
 	// The constructor initializes the game
 	public Design(int r, int c, PApplet window) {
 		this.cols = c;
@@ -28,6 +30,7 @@ public class Design {
 				grid[row][grid[0].length-1] = 1;
 			}
 		}
+		origionalGrid = grid;
 	}
 
 	/*
@@ -128,14 +131,6 @@ public class Design {
 		return grid;
 	}
 
-	public void Save() {
-		
-		
-		//TODO
-		
-		
-	}
-
 	public void setFalse() {
 		findValue = false;
 	}
@@ -159,5 +154,10 @@ public class Design {
 		}
 		return window.width/2;
 		
+	}
+
+	public int[][] origionalGrid() {
+		
+		return origionalGrid;
 	}
 }

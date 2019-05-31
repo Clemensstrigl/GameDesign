@@ -1,6 +1,15 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.plaf.synth.SynthSliderUI;
 
 import processing.core.*;
@@ -20,9 +29,10 @@ public class RunMe extends PApplet {
 	ArrayList<Objects> objects;
 	boolean firstClickAddingObjects = true, done = false, allDone = false;
 	boolean addObjects = false;
-	int Xstage = 0, Ystage, cStage;
-	float XStartX, yPositionX, XEndX, XSpeedX, YStartY, xPositionY, YEndY, YSpeedY;
+	int Xstage = 0, Ystage = 0, CStage = 0;
+	float XStartX, yPositionX, XEndX, XSpeedX, YStartY, xPositionY, YEndY, YSpeedY, xPositionC,yPositionC,Radius,CSpeedC;
 	boolean startXLinePath = false, startYLinePath = false;
+	String option;
 
 	public void setup() {
 		size(1200, 800); // set the size of the screen.
@@ -58,9 +68,7 @@ public class RunMe extends PApplet {
 				addObjects = true;
 				count = 0;
 			}
-			if (keyCode == CONTROL && key == 's') {
-				Design.Save();
-			}
+			
 
 			if (key == 'o') {
 				addObjects = true;
@@ -150,37 +158,43 @@ public class RunMe extends PApplet {
 	}
 
 	public void keyPressed() {
-		if (key == 'a') {
+		if (keyCode == LEFT) {
 			aPressed = true;
 		}
-		if (key == 's') {
+		if (keyCode == DOWN) {
 			sPressed = true;
 		}
-		if (key == 'd') {
+		if (keyCode == RIGHT) {
 			dPressed = true;
 		}
-		if (key == 'w') {
+		if (keyCode == UP) {
 			wPressed = true;
 		}
 
 	}
 
 	public void keyReleased() {
-		if (key == 'a') {
+		if (keyCode == LEFT) {
 			aPressed = false;
 			direction = 8;
 		}
-		if (key == 'd') {
+		if (keyCode == RIGHT) {
 			dPressed = false;
 			direction = 8;
 		}
-		if (key == 's') {
+		if (keyCode == DOWN) {
 			sPressed = false;
 			direction = 8;
 		}
-		if (key == 'w') {
+		if (keyCode == UP) {
 			wPressed = false;
 			direction = 8;
+		}
+		if (key == 'S') {
+			Save();
+		}
+		if(key == 'l') {
+			load();
 		}
 	}
 
@@ -305,24 +319,40 @@ public class RunMe extends PApplet {
 		Xstage = 1;
 	}
 
-//	public void addCircularObject() {
-//		float StartingX = -50;
-//		float StartingY = -50;
-//		float Radius = 0;
-//		if(mousePressed && firstClickAddingObjects == true) {
-//			 StartingX = mouseX;
-//			 yPosition = mouseY;
-//			firstClickAddingObjects = false;
+//	private void finishCirclePlacement() {
+//
+//		String response = JOptionPane.showInputDialog(
+//				"What do you want its CSPEED to be? Pls only write a hole number, this speed is derenmined by how many Pixels it moves. REMINDER this method runs 30 times a second");
+//		CSpeedC = Integer.parseInt(response);
+//
+//		objects.add(new XMovingObjects(this, , yPositionX, XSpeedX, XEndX));
+//		CircleObjects = false;
+//		CStage = 0;
+//		startRadiusLinePath = false;
+//
+//	}
+//
+//	private void contiueCirclePlacement() {
+//		float CalcRadius = 0;
+//		
+//		if(xPositionC < mouseX) {
+//			CalcRadius = mouseX - xPositionC;
+//		}
+//		if(xPositionC > mouseX) {
+//			CalcRadius = xPositionC - mouseX;
 //		}
 //		
-//		
-//		String response = JOptionPane.showInputDialog("What do you want its RADIUS to be? Pls only write a hole number, this speed is derenmined by how many Pixels it moves. REMINDER this method runs 30 times a second");
-//		 Radius = Integer.parseInt(response);
+//		Radius = CalcRadius;
+//		System.out.println("XEndX = " + XEndX);
+//		CStage = 2;
+//	}
 //
-//		 
-//		objects.add(new XMovingObjects(this,StartingX,StartingY,Radius,EndingX));
-//		
-//		
+//	private void startCiclePlacemnt() {
+//		xPositionC = mouseX;
+//		System.out.println("StartinX = " + xPositionC);
+//		yPositionC = mouseY;
+//		System.out.println("YPosition= " + yPositionC);
+//		CStage = 1;
 //	}
 
 	public void displayAllObjects() {
@@ -344,5 +374,90 @@ public class RunMe extends PApplet {
 	
 		line(xPositionY, YStartY, xPositionY, mouseY);
 	}
+	
+	public void Save() {
+		String response = JOptionPane.showInputDialog( "What do you want to call your Game that will be saved?");
+		try {
+			PrintWriter out = new PrintWriter(new FileWriter("SavedGame/" + response));
+			out.println(objects.size());
+			for(int i = 0; i< objects.size(); i++) {
+				out.println(objects.get(i).getStartingX() + "," + objects.get(i).getStartingY() + "," + objects.get(i).getSpeed() + "," + objects.get(i).getEndPosition() + "," + objects.get(i).whichObject());
+			}
+			for(int r = 0; r< grid.length; r++) {
+				for(int c = 0; c< grid[0].length; c++) {
+				out.print(grid[r][c] + ",");
+			}
+			out.println();
+			}
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public void load() {
+		grid = Design.origionalGrid();
+		objects.clear();
+		JFileChooser jfc = new JFileChooser("C:\\Users\\cstrigl928\\Eclipse storage\\Game Design",FileSystemView.getFileSystemView());
+		int returnValue = jfc.showOpenDialog(null);
+		// int returnValue = jfc.showSaveDialog(null);
+
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = jfc.getSelectedFile();
+			option  = selectedFile.getAbsolutePath();
+			grid = Design.origionalGrid();
+			objects.clear();
+		}
+		
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(option));
+			
+			String numString = in.readLine();
+			int num = Integer.parseInt(numString);
+			
+			for (int i = 0; i < num; i++) {
+				String line = in.readLine();
+				String[] vals = line.split(",");
+				float StartinX = Float.parseFloat(vals[0]);
+				float StartinY = Float.parseFloat(vals[1]);
+				float Speed = Float.parseFloat(vals[2]);
+				float EndPosition = Float.parseFloat(vals[3]);
+				float whichObject = Float.parseFloat(vals[4]);
+				
+				if(whichObject == 1) {
+					objects.add(new XMovingObjects(this, StartinX, StartinY, Speed, EndPosition));
+				}
+				if(whichObject == 2) {
+					objects.add(new YMovingObjects(this, StartinX, StartinY, Speed, EndPosition));
+				}
+				
+			}
+			
+			
+			
+			for(int r = 0; r <grid.length;r++) {
+				String line = in.readLine();
+					String[] gridvals = line.split(",");
+					int[] col = new int[gridvals.length];
+					
+					for(int i = 0; i< col.length; i++) {
+						String q = gridvals[i];
+						int w = Integer.parseInt(q);
+						col[i] = w;
+					}
+					
+					
+					grid[r] = col;
+				}
+				
+			
+			
+			in.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
 
 }

@@ -2,6 +2,7 @@ import processing.core.PApplet;
 
 public class XMovingObjects extends Objects {
 	float x, y, XStart, XEnd;
+	int XObject = 1;
 
 	public XMovingObjects(PApplet window, float StartingX, float StartingY, float XSpeed, float XEnd) {
 		super(window, StartingX, StartingY, XSpeed);
@@ -40,10 +41,24 @@ public class XMovingObjects extends Objects {
 		}
 	}
 
+	public float getStartingX() {
+		return this.StartingX;
+	}
+	public float getStartingY() {
+		return this.StartingY;
+	}
+	public float getSpeed() {
+		return Speed;
+	}
+	public float getEndPosition() {
+		return this.XEnd;
+	}
+	public int whichObject() {
+		return this.XObject;
+	}
 	public float getX() {
 		return this.x;
 	}
-
 	public float getY() {
 		return this.y;
 	}

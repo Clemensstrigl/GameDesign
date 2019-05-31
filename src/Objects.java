@@ -15,6 +15,13 @@ public abstract class Objects {
 	public abstract void draw();
 	public abstract void move();
 	public abstract void changeDirection();
+	public abstract float getStartingX();
+	public abstract float getStartingY();	
+	public abstract float getSpeed();	
+	public abstract float getEndPosition();	
+	public abstract int whichObject();
 	public abstract float getX();
-	public abstract float getY();	
+	public abstract float getY();
+
+
 }
