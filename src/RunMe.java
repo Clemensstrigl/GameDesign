@@ -33,6 +33,7 @@ public class RunMe extends PApplet {
 	float XStartX, yPositionX, XEndX, XSpeedX, YStartY, xPositionY, YEndY, YSpeedY, xPositionC,yPositionC,Radius,CSpeedC;
 	boolean startXLinePath = false, startYLinePath = false;
 	String option;
+	boolean load1,load2,load3;
 
 	public void setup() {
 		size(1200, 800);
@@ -189,7 +190,7 @@ public class RunMe extends PApplet {
 			Save();
 		}
 		if(key == 'l') {
-			load();
+			System.out.println(load());
 		}
 	}
 
@@ -390,7 +391,8 @@ public class RunMe extends PApplet {
 		}
 		
 	}
-	public void load() {
+	public String load() {
+		
 		grid = Design.origionalGrid();
 		objects.clear();
 		JFileChooser jfc = new JFileChooser("D:\\Eclipse\\Projects\\Game Design\\SavedGame",FileSystemView.getFileSystemView());
@@ -409,14 +411,19 @@ public class RunMe extends PApplet {
 			
 			String numString = in.readLine();
 			String[] StartingVals = numString.split(",");
+			if(StartingVals.length != 3) {
+				return "Data loading Error!";
+			}
 			int num = Integer.parseInt(StartingVals[0]);
 			Design.setStartingX(Float.parseFloat(StartingVals[1])); 
 			Design.setStartingY(Float.parseFloat(StartingVals[2])); 
-
 			
 			for (int i = 0; i < num; i++) {
 				String line = in.readLine();
 				String[] vals = line.split(",");
+				if(vals.length != 5) {
+					return "Data loading Error!";
+				}
 				float StartinX = Float.parseFloat(vals[0]);
 				float StartinY = Float.parseFloat(vals[1]);
 				float Speed = Float.parseFloat(vals[2]);
@@ -433,10 +440,12 @@ public class RunMe extends PApplet {
 			}
 			
 			
-			
 			for(int r = 0; r <grid.length;r++) {
 				String line = in.readLine();
 					String[] gridvals = line.split(",");
+					if(gridvals.length != grid[0].length) {
+						return "Data loading Error!";
+					}
 					int[] col = new int[gridvals.length];
 					
 					for(int i = 0; i< col.length; i++) {
@@ -448,7 +457,6 @@ public class RunMe extends PApplet {
 					
 					grid[r] = col;
 				}
-				
 		
 			in.close();
 			Design.setLoadingPoints();
@@ -456,6 +464,7 @@ public class RunMe extends PApplet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "Data succesfully loaded";
 }
 
 }
