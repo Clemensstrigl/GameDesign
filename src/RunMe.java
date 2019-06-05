@@ -408,15 +408,18 @@ public class RunMe extends PApplet {
 		
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(option));
-			
+			System.out.println(".");
 			String numString = in.readLine();
 			String[] StartingVals = numString.split(",");
 			if(StartingVals.length != 3) {
 				return "Data loading Error!";
 			}
 			int num = Integer.parseInt(StartingVals[0]);
+			System.out.println(".");
 			Design.setStartingX(Float.parseFloat(StartingVals[1])); 
+			System.out.println(".");
 			Design.setStartingY(Float.parseFloat(StartingVals[2])); 
+			System.out.println(".");
 			
 			for (int i = 0; i < num; i++) {
 				String line = in.readLine();
@@ -428,14 +431,14 @@ public class RunMe extends PApplet {
 				float StartinY = Float.parseFloat(vals[1]);
 				float Speed = Float.parseFloat(vals[2]);
 				float EndPosition = Float.parseFloat(vals[3]);
-				float whichObject = Float.parseFloat(vals[4]);
-				
+				float whichObject = Float.parseFloat(vals[4]);				
 				if(whichObject == 1) {
 					objects.add(new XMovingObjects(this, StartinX, StartinY, Speed, EndPosition));
 				}
 				if(whichObject == 2) {
 					objects.add(new YMovingObjects(this, StartinX, StartinY, Speed, EndPosition));
 				}
+				System.out.println(".");
 				
 			}
 			
@@ -452,14 +455,16 @@ public class RunMe extends PApplet {
 						String q = gridvals[i];
 						int w = Integer.parseInt(q);
 						col[i] = w;
+						
 					}
-					
 					
 					grid[r] = col;
 				}
-		
+			System.out.println(".");
 			in.close();
+			System.out.println(".");
 			Design.setLoadingPoints();
+			System.out.println(".");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
